@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mekk a Change – Mekk en sykkel. Mekk en forskjell.</title>
+  <meta name="description" content="Mekk a Change er et frivillig prosjekt som reparerer slitte sykler og samler inn penger til humanitært arbeid i Gaza. Se festivalen, finn oss på stand og lær å mekke selv.">
+  <meta property="og:title" content="Mekk a Change">
+  <meta property="og:description" content="Mekk en sykkel. Mekk en forskjell. Frivillig innsamling til humanitært arbeid i Gaza.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <script>
+    (function () {
+      var c = document.documentElement.classList;
+      c.add('js');
+      // Åpningsfortellingen vises ved første innlasting. Hopper over hvis du lenker rett til en seksjon (#...) eller bruker ?intro=0
+      if (!location.hash && !/[?&]intro=0/.test(location.search)) c.add('intro-on');
+    })();
+  </script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Gjenbrukbare SVG-symboler og filter (linoleumstrykk) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="rough" x="-15%" y="-15%" width="130%" height="130%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="4"/>
+      </filter>
+      <filter id="fray" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.07" numOctaves="3" seed="9" result="n"/>
+        <feDisplacementMap in="SourceGraphic" in2="n" scale="9"/>
+      </filter>
+      <symbol id="st-coin" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="6"/>
+        <circle cx="50" cy="50" r="28" fill="none" stroke="currentColor" stroke-width="3"/>
+        <path d="M42 34v32M42 50h16" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="st-wheel" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="7"/>
+        <circle cx="50" cy="50" r="7" fill="currentColor"/>
+        <g stroke="currentColor" stroke-width="3.5" stroke-linecap="round">
+          <line x1="50" y1="8" x2="50" y2="92"/><line x1="8" y1="50" x2="92" y2="50"/>
+          <line x1="20" y1="20" x2="80" y2="80"/><line x1="80" y1="20" x2="20" y2="80"/>
+        </g>
+      </symbol>
+      <symbol id="st-wrench" viewBox="0 0 100 100">
+        <g fill="currentColor" transform="rotate(-45 50 50)">
+          <rect x="44" y="30" width="12" height="62" rx="6"/>
+          <path d="M34 8h10v16h12V8h10v22a16 16 0 0 1-32 0z"/>
+        </g>
+      </symbol>
+      <symbol id="st-heart" viewBox="0 0 100 100">
+        <path fill="currentColor" d="M50 88C10 60 6 30 26 20c12-6 21 0 24 10 3-10 12-16 24-10 20 10 16 40-24 68z"/>
+      </symbol>
+      <symbol id="st-leaf" viewBox="0 0 100 100">
+        <g fill="currentColor">
+          <ellipse cx="24" cy="58" rx="13" ry="5" transform="rotate(-50 24 58)"/>
+          <ellipse cx="42" cy="72" rx="13" ry="5" transform="rotate(20 42 72)"/>
+          <ellipse cx="40" cy="40" rx="13" ry="5" transform="rotate(-50 40 40)"/>
+          <ellipse cx="58" cy="54" rx="13" ry="5" transform="rotate(20 58 54)"/>
+          <ellipse cx="56" cy="22" rx="13" ry="5" transform="rotate(-50 56 22)"/>
+          <ellipse cx="74" cy="36" rx="13" ry="5" transform="rotate(20 74 36)"/>
+          <ellipse cx="84" cy="12" rx="10" ry="4" transform="rotate(-30 84 12)"/>
+        </g>
+        <path d="M18 90Q50 52 82 14" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- Åpningsfortelling (vises bare med JavaScript) -->
+  <div class="intro" id="intro" role="dialog" aria-modal="true" aria-label="Åpning: historien om Mekk a Change">
+    <button type="button" class="intro-skip mono" id="intro-skip">Hopp over →</button>
+    <div class="intro-syms" id="intro-syms" aria-hidden="true"></div>
+    <div class="intro-stage" id="intro-stage" aria-live="polite"></div>
+    <p class="intro-hint mono" aria-hidden="true">trykk for å gå videre</p>
+    <div class="intro-progress" aria-hidden="true"><span id="intro-bar"></span></div>
+  </div>
+
+  <a class="skip" href="#innhold">Hopp til innhold</a>
+
+  <header class="site-header">
+    <a class="logo" href="#top" aria-label="Mekk a Change – til toppen">
+      <svg viewBox="0 0 40 40" width="28" height="28" aria-hidden="true"><use href="#st-wheel"/></svg>
+      <span>Mekk <em>a</em> Change</span>
+    </a>
+    <button class="menu-btn" aria-expanded="false" aria-controls="nav">Meny</button>
+    <nav id="nav" class="nav" aria-label="Hovedmeny">
+      <a href="#om">Om</a>
+      <a href="#slik">Slik funker det</a>
+      <a href="#hendelser">Festival &amp; stands</a>
+      <a href="#guide">Mekk selv</a>
+      <a href="#bli-med">Bli med</a>
+      <a class="btn btn-small" href="#doner">Doner</a>
+    </nav>
+  </header>
+
+  <main id="innhold">
+    <!-- HERO -->
+    <section class="hero wrap" id="top">
+      <div class="hero-text">
+        <p class="label">Frivillig innsamling for Gaza</p>
+        <h1>Mekk en&nbsp;sykkel.<br>Mekk en <em>forskjell.</em></h1>
+        <p class="lead">Vi setter slitte sykler i stand, selger dem på en helgefestival og sender pengene videre til humanitært arbeid i Gaza. Alt drives av frivillige.</p>
+        <div class="cta-row">
+          <a class="btn" href="#doner">Doner til Gaza</a>
+          <a class="btn btn-ghost" href="#hendelser">Se festivalen</a>
+        </div>
+      </div>
+
+      <div class="stage" id="stage">
+        <p class="stage-hint mono" aria-hidden="true">↳ dra i bitene &middot; snurr på hjulet &middot; ring på bjella</p>
+
+        <div class="piece p-sand" data-drag aria-hidden="true"></div>
+
+        <div class="piece p-wheel" data-drag data-click="spin" tabindex="0" role="button" aria-label="Hjul. Trykk for å snurre.">
+          <div class="disc clay"></div>
+          <svg class="wheel" viewBox="0 0 200 200" aria-hidden="true">
+            <g fill="none" stroke="#f7f3ea" stroke-width="1.6" stroke-linecap="round">
+              <circle cx="100" cy="100" r="94"/>
+              <circle cx="100" cy="100" r="82" stroke-dasharray="1 7"/>
+              <g>
+                <line x1="100" y1="6" x2="100" y2="194"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(22.5 100 100)"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(45 100 100)"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(67.5 100 100)"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(90 100 100)"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(112.5 100 100)"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(135 100 100)"/>
+                <line x1="100" y1="6" x2="100" y2="194" transform="rotate(157.5 100 100)"/>
+              </g>
+            </g>
+            <circle cx="100" cy="100" r="9" fill="#1d1c1a"/>
+          </svg>
+        </div>
+
+        <div class="piece p-olive" data-drag aria-hidden="true">
+          <div class="disc olive"><span class="ring"></span></div>
+          <svg class="leaf" viewBox="0 0 100 100" aria-hidden="true"><use href="#st-leaf"/></svg>
+        </div>
+
+        <div class="piece p-photo" data-drag aria-hidden="true">
+          <div class="scrap photo">
+            <span class="tape t1"></span><span class="tape t2"></span>
+            <span class="tag mono"><span class="ph">[foto: verkstedet]</span></span>
+          </div>
+        </div>
+
+        <div class="piece p-note" data-drag aria-hidden="true">
+          <div class="scrap note">
+            <p class="serif">Fra slitt<br><em>til sterk.</em></p>
+            <p class="mono small">Nesten 500&nbsp;000&nbsp;kr samlet inn første året</p>
+          </div>
+        </div>
+
+        <div class="piece p-bell" data-drag data-click="ring" tabindex="0" role="button" aria-label="Sykkelbjelle. Trykk for å ringe.">
+          <div class="bell">
+            <svg viewBox="0 0 48 48" width="34" height="34" aria-hidden="true">
+              <path d="M24 8a14 14 0 0 0-14 14v6H8v4h32v-4h-2v-6A14 14 0 0 0 24 8z" fill="none" stroke="currentColor" stroke-width="2"/>
+              <circle cx="24" cy="36" r="3" fill="currentColor"/>
+            </svg>
+            <span class="mono">ring</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track mono">
+        <span>Mekk en sykkel</span><span class="dot">●</span><span>Mekk en forskjell</span><span class="dot">●</span><span>Hver krone går til Gaza</span><span class="dot">●</span><span>Frivillig drevet</span><span class="dot">●</span>
+        <span>Mekk en sykkel</span><span class="dot">●</span><span>Mekk en forskjell</span><span class="dot">●</span><span>Hver krone går til Gaza</span><span class="dot">●</span><span>Frivillig drevet</span><span class="dot">●</span>
+      </div>
+    </div>
+
+    <!-- TALL -->
+    <section class="stats wrap" aria-label="Resultater så langt">
+      <div class="stat" data-reveal><span class="num">~500&nbsp;000&nbsp;kr</span><span class="lbl mono">samlet inn første året</span></div>
+      <div class="stat" data-reveal><span class="num"><span class="ph" title="Plassholder – fyll inn riktig tall">[antall]</span></span><span class="lbl mono">sykler satt i stand</span></div>
+      <div class="stat" data-reveal><span class="num"><span class="ph" title="Plassholder – fyll inn riktig tall">[antall]</span></span><span class="lbl mono">frivillige</span></div>
+    </section>
+
+    <!-- OM -->
+    <section class="section wrap" id="om">
+      <div class="two-col">
+        <div data-reveal>
+          <p class="label"><span>01</span> Om</p>
+          <h2>Små hender. <em>Store hjul.</em> Stort hjerte.</h2>
+          <div class="prose">
+            <p>Mekk a Change er et frivillig prosjekt som startet med en enkel tanke: gamle sykler som står og forfaller kan få nytt liv, og det livet kan bli til hjelp for mennesker i Gaza.</p>
+            <p>Vi samler inn slitte sykler, setter dem i stand i fellesskap og selger dem på en stor sykkelfestival. Overskuddet går til humanitært arbeid i Gaza. Det er hele grunnen til at prosjektet finnes.</p>
+            <p><span class="ph" title="Plassholder – stifterens historie">[Her kan stifteren fortelle sin egen historie.]</span></p>
+          </div>
+        </div>
+        <div class="duo" data-reveal>
+          <div class="duo-disc"></div>
+          <div class="scrap photo d1"><span class="tape t1"></span><span class="tag mono"><span class="ph">[foto]</span></span></div>
+          <div class="scrap photo d2 alt"><span class="tape t2"></span><span class="tag mono"><span class="ph">[foto]</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SLIK FUNKER DET -->
+    <section class="section section-tint" id="slik">
+      <div class="wrap">
+        <p class="label" data-reveal><span>02</span> Slik funker det</p>
+        <h2 data-reveal>Fra rust til <em>rullende.</em></h2>
+        <ol class="steps">
+          <li class="step s1" data-reveal>
+            <span class="step-n serif">1</span>
+            <h3>Vi samler inn sykler</h3>
+            <p>Slitte, rustne og glemte sykler som trenger litt kjærlighet. Står det en i kjelleren din? Gi den til oss.</p>
+          </li>
+          <li class="step s2" data-reveal>
+            <span class="step-n serif">2</span>
+            <h3>Frivillige mekker</h3>
+            <p>Gjennom hele året skrus, smøres og fikses det. Alle er velkomne, også uten erfaring.</p>
+          </li>
+          <li class="step s3" data-reveal>
+            <span class="step-n serif">3</span>
+            <h3>Pengene går til Gaza</h3>
+            <p>Syklene selges på festivalen. Overskuddet går til humanitært arbeid i Gaza.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FESTIVAL OG STANDS -->
+    <section class="section wrap" id="hendelser">
+      <p class="label" data-reveal><span>03</span> Festival &amp; stands</p>
+      <h2 data-reveal>Én helg i året. <em>Hele året ute.</em></h2>
+      <p class="lead narrow" data-reveal>Én gang i året samler vi alt på festivalen. Resten av året tar vi med oss budskapet ut og står på stand der folk er.</p>
+
+      <article class="ticket" data-reveal>
+        <div class="ticket-main">
+          <p class="label">Årets hovedbegivenhet</p>
+          <h3>Mekk a Change-festivalen</h3>
+          <p>En hel helg med stort sykkelsalg av sykler vi har brukt lang tid på å sette i stand. I tillegg er det:</p>
+          <ul class="tags">
+            <li>Artister og konserter</li>
+            <li>Klessalg</li>
+            <li>Linoleumstrykk til egen merch</li>
+            <li>Aktiviteter for hele familien</li>
+          </ul>
+          <p class="small">Første festival ga nesten 500&nbsp;000&nbsp;kr til Gaza. Hjelp oss å gjøre den enda større.</p>
+          <p class="small"><span class="ph" title="Plassholder – program">[Program og artister legges inn når de er klare.]</span></p>
+        </div>
+        <div class="ticket-stub">
+          <p class="mono">Når</p>
+          <p class="serif big"><span class="ph" title="Plassholder – dato">[Dato]</span></p>
+          <p class="mono">Hvor</p>
+          <p class="serif big"><span class="ph" title="Plassholder – sted">[Sted]</span></p>
+        </div>
+      </article>
+
+      <div class="stands-block">
+        <div data-reveal>
+          <h3 class="serif">Vi står på <em>stand</em></h3>
+          <p>Vi tar med sykler, verktøy og historien vår til andre arrangementer. Kom innom for en prat, få hjelp med sykkelen din, eller hør mer om hva vi gjør.</p>
+          <p class="small">Vil du ha oss på ditt arrangement? <a href="#bli-med">Ta kontakt.</a></p>
+        </div>
+        <ul class="stands" data-reveal>
+          <li><span class="when mono"><span class="ph">[dato]</span></span><span class="what serif"><span class="ph">[Arrangement]</span></span><span class="where mono"><span class="ph">[sted]</span></span></li>
+          <li><span class="when mono"><span class="ph">[dato]</span></span><span class="what serif"><span class="ph">[Arrangement]</span></span><span class="where mono"><span class="ph">[sted]</span></span></li>
+          <li><span class="when mono"><span class="ph">[dato]</span></span><span class="what serif"><span class="ph">[Arrangement]</span></span><span class="where mono"><span class="ph">[sted]</span></span></li>
+        </ul>
+      </div>
+
+      <!-- Linoleumstrykk-bord -->
+      <div class="print" data-reveal>
+        <div class="print-info">
+          <p class="label">Prøv selv</p>
+          <h3 class="serif">Linoleums<em>trykk</em></h3>
+          <p>På festivalen trykker vi merch for hånd. Velg et motiv og trykk på papiret.</p>
+          <div class="stamp-pick" role="radiogroup" aria-label="Velg trykkmotiv">
+            <button type="button" role="radio" aria-checked="true" aria-label="Hjul" data-stamp="st-wheel"><svg viewBox="0 0 100 100" width="34" height="34"><use href="#st-wheel"/></svg></button>
+            <button type="button" role="radio" aria-checked="false" aria-label="Skrunøkkel" data-stamp="st-wrench"><svg viewBox="0 0 100 100" width="34" height="34"><use href="#st-wrench"/></svg></button>
+            <button type="button" role="radio" aria-checked="false" aria-label="Hjerte" data-stamp="st-heart"><svg viewBox="0 0 100 100" width="34" height="34"><use href="#st-heart"/></svg></button>
+            <button type="button" role="radio" aria-checked="false" aria-label="Olivengren" data-stamp="st-leaf"><svg viewBox="0 0 100 100" width="34" height="34"><use href="#st-leaf"/></svg></button>
+          </div>
+          <div class="print-actions">
+            <button type="button" class="btn btn-small btn-ghost" id="stamp-random">Trykk et motiv</button>
+            <button type="button" class="btn btn-small btn-ghost" id="stamp-clear">Nytt ark</button>
+          </div>
+        </div>
+        <div class="board-wrap">
+          <div class="board" id="board" aria-label="Trykkflate. Trykk eller klikk for å trykke et motiv.">
+            <span class="board-hint mono">trykk her</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEKK SELV -->
+    <section class="section section-tint" id="guide">
+      <div class="wrap">
+        <p class="label" data-reveal><span>04</span> Mekk selv</p>
+        <h2 data-reveal>Lær å <em>mekke.</em></h2>
+        <p class="lead narrow" data-reveal>Sykkelreparasjon er kjernen i alt vi gjør. Trykk på sykkelen, eller velg en guide under.</p>
+
+        <div class="guide-stage" id="guide-stage" data-active="punktering">
+          <div class="bike-wrap" data-reveal>
+            <svg viewBox="0 0 400 260" class="bike-svg" role="img" aria-label="Tegning av en sykkel">
+              <circle cx="200" cy="150" r="108" fill="#d9c9a6"/>
+              <rect x="30" y="24" width="96" height="96" fill="#d8a99b" transform="rotate(-9 78 72)"/>
+              <path d="M262 36a64 64 0 0 1 0 128z" fill="#a9b59b" transform="rotate(-20 262 100)"/>
+              <g fill="none" stroke="#1d1c1a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <g data-part="punktering">
+                  <circle cx="95" cy="175" r="62"/><circle cx="95" cy="175" r="54" stroke-dasharray="1 5"/>
+                  <circle cx="305" cy="175" r="62"/><circle cx="305" cy="175" r="54" stroke-dasharray="1 5"/>
+                </g>
+                <path d="M95 175L190 175M95 175L165 100M165 100L190 175M190 175L275 115M165 100L265 95M275 115L305 175M265 95L275 115"/>
+                <path d="M165 100L165 90M150 90L185 90"/>
+                <g data-part="kjede">
+                  <circle cx="190" cy="175" r="18"/><circle cx="95" cy="175" r="8"/>
+                  <path d="M190 157L95 167M190 193L95 183"/>
+                </g>
+                <g data-part="bremser">
+                  <path d="M286 120Q305 98 324 120"/><path d="M305 101Q302 90 292 82"/>
+                </g>
+                <g data-part="sjekk">
+                  <path d="M265 95L265 80M258 80L292 80"/>
+                </g>
+              </g>
+            </svg>
+            <button type="button" class="hot" data-guide="punktering" style="left:23.75%;top:43.5%" tabindex="-1" aria-hidden="true"><span>Dekk</span></button>
+            <button type="button" class="hot" data-guide="kjede" style="left:35%;top:62.7%" tabindex="-1" aria-hidden="true"><span>Kjede</span></button>
+            <button type="button" class="hot" data-guide="bremser" style="left:75.5%;top:46%" tabindex="-1" aria-hidden="true"><span>Bremser</span></button>
+            <button type="button" class="hot" data-guide="sjekk" style="left:72.5%;top:30.8%" tabindex="-1" aria-hidden="true"><span>Sjekk</span></button>
+          </div>
+
+          <div class="guide-panel-wrap" data-reveal>
+            <div class="guide-tabs" role="tablist" aria-label="Velg guide">
+              <button type="button" role="tab" id="tab-punktering" aria-controls="g-punktering" aria-selected="true" data-guide="punktering">Punktering</button>
+              <button type="button" role="tab" id="tab-kjede" aria-controls="g-kjede" aria-selected="false" data-guide="kjede">Kjede</button>
+              <button type="button" role="tab" id="tab-bremser" aria-controls="g-bremser" aria-selected="false" data-guide="bremser">Bremser</button>
+              <button type="button" role="tab" id="tab-sjekk" aria-controls="g-sjekk" aria-selected="false" data-guide="sjekk">Før du sykler</button>
+            </div>
+
+            <article class="guide-panel" id="g-punktering" role="tabpanel" aria-labelledby="tab-punktering">
+              <h3 class="serif">Punktering</h3>
+              <p class="tools mono">Du trenger: dekkjern (2–3), lappesett eller ny slange, pumpe</p>
+              <ol>
+                <li>Ta av hjulet. Slipp ut all luft hvis det er igjen noe.</li>
+                <li>Bruk dekkjernene til å løfte den ene dekkraden av felgen og trekk ut slangen.</li>
+                <li>Pump litt luft i slangen og finn hullet (lytt, eller hold den mot ansiktet). Sjekk også at det ikke sitter noe skarpt i dekket.</li>
+                <li>Lapp slangen, eller bytt den. Lappen må sitte godt og tørke før du bruker slangen.</li>
+                <li>Legg slangen tilbake, trykk dekket på plass uten å klemme slangen, pump opp og monter hjulet.</li>
+              </ol>
+            </article>
+
+            <article class="guide-panel" id="g-kjede" role="tabpanel" aria-labelledby="tab-kjede">
+              <h3 class="serif">Kjede som hopper eller skurrer</h3>
+              <p class="tools mono">Du trenger: kjedeolje, fille, eventuelt kjedeverktøy</p>
+              <ol>
+                <li>Tørk kjeden ren med en fille mens du vrir pedalene bakover.</li>
+                <li>Dryss litt kjedeolje på hvert ledd. Vri rundt og tørk av overskuddet.</li>
+                <li>Hopper kjeden fortsatt, kan den være slitt eller ha et stivt ledd. Se etter ledd som ikke bøyer seg.</li>
+                <li>Er kjeden langstrakt, byttes den. Da bør ofte tannhjulene også sjekkes.</li>
+              </ol>
+            </article>
+
+            <article class="guide-panel" id="g-bremser" role="tabpanel" aria-labelledby="tab-bremser">
+              <h3 class="serif">Bremser</h3>
+              <p class="tools mono">Du trenger: unbrakonøkler, eventuelt nye bremseklosser</p>
+              <ol>
+                <li>Sjekk at klossene treffer felgen og ikke dekket, og at de ikke er slitt ned til kanten av sporet.</li>
+                <li>Er bremsen slapp, stram den med justeringsskruen på bremsehåndtaket eller ved bremsen.</li>
+                <li>Slipper bremsen dårlig, smør vaieren og sjekk at den ikke er rusten eller bøyd.</li>
+                <li>Test alltid bremsene stillestående før du sykler.</li>
+              </ol>
+            </article>
+
+            <article class="guide-panel" id="g-sjekk" role="tabpanel" aria-labelledby="tab-sjekk">
+              <h3 class="serif">Sjekk før du sykler</h3>
+              <p class="tools mono">Tar ett minutt</p>
+              <ol>
+                <li>Luft i dekkene. Trykk på dekket, og det skal ikke gi mye etter.</li>
+                <li>Bremser virker, både foran og bak.</li>
+                <li>Lys foran og bak fungerer, og du har refleks.</li>
+                <li>Kjeden er smurt, og hjulene sitter fast.</li>
+              </ol>
+            </article>
+
+            <p class="small">Usikker? Kom på stand eller til verkstedet, så hjelper vi deg.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DONER -->
+    <section class="donate" id="doner">
+      <div class="wrap donate-inner">
+        <div data-reveal>
+          <p class="label light"><span>05</span> Doner</p>
+          <h2>Støtt humanitært arbeid <em>i Gaza.</em></h2>
+          <p class="lead">Alt vi gjør, fra første skrutrekker til siste sykkelsalg, handler om å samle inn penger til mennesker i Gaza. Hver krone teller, uansett størrelse.</p>
+        </div>
+        <div class="give" data-reveal>
+          <p class="mono">Velg et beløp</p>
+          <div class="amounts" role="group" aria-label="Velg beløp">
+            <button type="button" class="amount" aria-pressed="false" data-amt="100">100 kr</button>
+            <button type="button" class="amount" aria-pressed="true" data-amt="250">250 kr</button>
+            <button type="button" class="amount" aria-pressed="false" data-amt="500">500 kr</button>
+            <button type="button" class="amount" aria-pressed="false" data-amt="1000">1000 kr</button>
+          </div>
+          <label class="custom mono">Eget beløp
+            <input type="number" min="1" inputmode="numeric" id="custom-amt" placeholder="kr">
+          </label>
+          <div class="pay-box">
+            <p>Du gir <strong id="amt-out">250 kr</strong></p>
+            <p class="small"><span class="ph ph-light" title="Plassholder – legg inn riktig Vipps-nummer eller kontonummer">[Vipps-nummer / kontonummer kommer]</span></p>
+            <p class="small"><span class="ph ph-light" title="Plassholder – fyll inn mottaker">[Her forklarer vi hvem som mottar pengene og hvordan de brukes.]</span></p>
+          </div>
+          <p class="small muted">Prototype: betalingsløsningen er ikke koblet til ennå.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLI MED -->
+    <section class="section wrap" id="bli-med">
+      <p class="label" data-reveal><span>06</span> Bli med</p>
+      <h2 data-reveal>Vær med å <em>mekke.</em></h2>
+      <div class="join">
+        <div class="join-card j1" data-reveal>
+          <h3 class="serif">Bli frivillig</h3>
+          <p>Du trenger ikke kunne noe om sykler. Vi lærer deg det vi kan.</p>
+        </div>
+        <div class="join-card j2" data-reveal>
+          <h3 class="serif">Gi bort en sykkel</h3>
+          <p>Har du en sliten sykkel stående? Vi tar imot og setter den i stand.</p>
+        </div>
+        <div class="join-card j3" data-reveal>
+          <h3 class="serif">Invitér oss</h3>
+          <p>Vil du ha oss på stand på et arrangement? Si fra, så kommer vi.</p>
+        </div>
+      </div>
+      <p class="contact mono" data-reveal>
+        <span class="ph" title="Plassholder – kontaktinfo">[e-post]</span> &nbsp;/&nbsp;
+        <span class="ph" title="Plassholder – kontaktinfo">[Instagram]</span>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="wordmark serif">Mekk <em>a</em> Change</p>
+      <p class="small">Et frivillig prosjekt. Prototype laget av en frivillig. Innhold i <span class="ph ph-light">[klammer]</span> er plassholdere som må erstattes.</p>
+      <p class="small"><a href="?intro=1">Spill av åpningen på nytt</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
